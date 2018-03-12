@@ -1,34 +1,16 @@
 <template>
   <nav class="navigation-bar" :class="{'navigation-bar--editor': styles.showEditor && !revisionContent}">
-    <!-- Explorer -->
-    <div class="navigation-bar__inner navigation-bar__inner--left navigation-bar__inner--button">
-      <button class="navigation-bar__button button" tour-step-anchor="explorer" @click="toggleExplorer()" v-title="'Toggle explorer'"><icon-folder></icon-folder></button>
-    </div>
-    <!-- Side bar -->
-    <div class="navigation-bar__inner navigation-bar__inner--right navigation-bar__inner--button">
-      <button class="navigation-bar__button navigation-bar__button--stackedit button" tour-step-anchor="menu" @click="toggleSideBar()" v-title="'Toggle side bar'"><icon-provider provider-id="stackedit"></icon-provider></button>
-    </div>
-    <div class="navigation-bar__inner navigation-bar__inner--right navigation-bar__inner--title flex flex--row">
-      <!-- Spinner -->
-      <div class="navigation-bar__spinner">
-        <div v-if="!offline && showSpinner" class="spinner"></div>
-        <icon-sync-off v-if="offline"></icon-sync-off>
+    <!-- Title bar -->
+    <div class="navigation-bar__inner navigation-bar__inner--titlebar" style="overflow:hidden;">
+      <!-- Explorer -->
+      <div class="navigation-bar__inner navigation-bar__inner--left navigation-bar__inner--button">
+        <button class="navigation-bar__button button" tour-step-anchor="explorer" @click="toggleExplorer()" v-title="'Toggle explorer'"><icon-folder></icon-folder></button>
       </div>
-      <!-- Title -->
-      <div class="navigation-bar__title navigation-bar__title--fake text-input"></div>
-      <div class="navigation-bar__title navigation-bar__title--text text-input" :style="{width: titleWidth + 'px'}">{{title}}</div>
-      <input class="navigation-bar__title navigation-bar__title--input text-input" :class="{'navigation-bar__title--focus': titleFocus, 'navigation-bar__title--scrolling': titleScrolling}" :style="{width: titleWidth + 'px'}" @focus="editTitle(true)" @blur="editTitle(false)" @keydown.enter="submitTitle()" @keydown.esc="submitTitle(true)" @mouseenter="titleHover = true" @mouseleave="titleHover = false" v-model="title">
-      <!-- Sync/Publish -->
-      <div class="flex flex--row" :class="{'navigation-bar__hidden': styles.hideLocations}">
-        <a class="navigation-bar__button navigation-bar__button--location button" :class="{'navigation-bar__button--blink': location.id === currentLocation.id}" v-for="location in syncLocations" :key="location.id" :href="location.url" target="_blank" v-title="'Synchronized location'"><icon-provider :provider-id="location.providerId"></icon-provider></a>
-        <button class="navigation-bar__button navigation-bar__button--sync button" :disabled="!isSyncPossible || isSyncRequested || offline" @click="requestSync" v-title="'Synchronize now'"><icon-sync></icon-sync></button>
-        <a class="navigation-bar__button navigation-bar__button--location button" :class="{'navigation-bar__button--blink': location.id === currentLocation.id}" v-for="location in publishLocations" :key="location.id" :href="location.url" target="_blank" v-title="'Publish location'"><icon-provider :provider-id="location.providerId"></icon-provider></a>
-        <button class="navigation-bar__button navigation-bar__button--publish button" :disabled="!publishLocations.length || isPublishRequested || offline" @click="requestPublish" v-title="'Publish now'"><icon-upload></icon-upload></button>
-      </div>
-      <!-- Revision -->
-      <div class="flex flex--row" v-if="revisionContent">
-        <button class="navigation-bar__button navigation-bar__button--revision navigation-bar__button--restore button" @click="restoreRevision">Restore</button>
-        <button class="navigation-bar__button navigation-bar__button--revision button" @click="setRevisionContent()" v-title="'Close revision'"><icon-close></icon-close></button>
+      <div class="navigation-bar__inner navigation-bar__inner--title--wrap">
+        <!-- Title -->
+        <div class="navigation-bar__title navigation-bar__title--fake text-input"></div>
+        <div class="navigation-bar__title navigation-bar__title--text text-input" :style="{width: titleWidth + 'px'}">{{title}}</div>
+        <input class="navigation-bar__title navigation-bar__title--input text-input" :class="{'navigation-bar__title--focus': titleFocus, 'navigation-bar__title--scrolling': titleScrolling}" :style="{width: titleWidth + 'px'}" @focus="editTitle(true)" @blur="editTitle(false)" @keydown.enter="submitTitle()" @keydown.esc="submitTitle(true)" @mouseenter="titleHover = true" @mouseleave="titleHover = false" v-model="title">
       </div>
     </div>
     <div class="navigation-bar__inner navigation-bar__inner--edit-buttons">
@@ -237,8 +219,8 @@ export default {
   }
 }
 
-.navigation-bar__inner--title * {
-  flex: none;
+.navigation-bar__inner--title--wrap {
+  margin-right: 20px;
 }
 
 $button-size: 36px;
@@ -327,6 +309,7 @@ $button-size: 36px;
   &:hover {
     color: $navbar-hover-color;
     background-color: $navbar-hover-background;
+    border-color: $navbar-hover-border-color;
   }
 }
 

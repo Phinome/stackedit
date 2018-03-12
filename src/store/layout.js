@@ -15,7 +15,7 @@ const constants = {
   explorerWidth: 260,
   gutterWidth: 250,
   sideBarWidth: 280,
-  navigationBarHeight: 44,
+  navigationBarHeight: 110,
   buttonBarWidth: 26,
   statusBarHeight: 20,
 };
