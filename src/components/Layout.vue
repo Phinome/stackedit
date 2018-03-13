@@ -1,50 +1,6 @@
 <template>
   <div class="layout" :class="{'layout--revision': revisionContent}">
-    <div class="layout__panel flex flex--row" :class="{'flex--end': styles.showSideBar}">
-      <div class="layout__panel layout__panel--explorer" v-show="styles.showExplorer" :aria-hidden="!styles.showExplorer" :style="{width: styles.layoutOverflow ? '100%' : constants.explorerWidth + 'px'}">
-        <explorer></explorer>
-      </div>
-      <div class="layout__panel flex flex--column" tour-step-anchor="welcome,end" :style="{width: styles.innerWidth + 'px'}">
-        <div class="layout__panel layout__panel--navigation-bar" v-show="styles.showNavigationBar" :style="{height: constants.navigationBarHeight + 'px'}">
-          <navigation-bar></navigation-bar>
-        </div>
-        <div class="layout__panel flex flex--row" :style="{height: styles.innerHeight + 'px'}">
-          <div class="layout__panel layout__panel--editor" v-show="styles.showEditor" :style="{width: (styles.editorWidth + styles.editorGutterWidth) + 'px', fontSize: styles.fontSize + 'px'}">
-            <div class="gutter" :style="{left: styles.editorGutterLeft + 'px'}">
-              <div class="gutter__background" v-if="styles.editorGutterWidth" :style="{width: styles.editorGutterWidth + 'px'}"></div>
-            </div>
-            <editor></editor>
-            <div class="gutter" :style="{left: styles.editorGutterLeft + 'px'}">
-              <sticky-comment v-if="styles.editorGutterWidth && stickyComment === 'top'"></sticky-comment>
-              <current-discussion v-if="styles.editorGutterWidth"></current-discussion>
-            </div>
-          </div>
-          <div class="layout__panel layout__panel--button-bar" v-show="styles.showEditor" :style="{width: constants.buttonBarWidth + 'px'}">
-            <button-bar></button-bar>
-          </div>
-          <div class="layout__panel layout__panel--preview" v-show="styles.showPreview" :style="{width: (styles.previewWidth + styles.previewGutterWidth) + 'px', fontSize: styles.fontSize + 'px'}">
-            <div class="gutter" :style="{left: styles.previewGutterLeft + 'px'}">
-              <div class="gutter__background" v-if="styles.previewGutterWidth" :style="{width: styles.previewGutterWidth + 'px'}"></div>
-            </div>
-            <preview></preview>
-            <div class="gutter" :style="{left: styles.previewGutterLeft + 'px'}">
-              <sticky-comment v-if="styles.previewGutterWidth && stickyComment === 'top'"></sticky-comment>
-              <current-discussion v-if="styles.previewGutterWidth"></current-discussion>
-            </div>
-          </div>
-          <div class="layout__panel layout__panel--find-replace" v-if="showFindReplace">
-            <find-replace></find-replace>
-          </div>
-        </div>
-        <div class="layout__panel layout__panel--status-bar" v-show="styles.showStatusBar" :style="{height: constants.statusBarHeight + 'px'}">
-          <status-bar></status-bar>
-        </div>
-      </div>
-      <div class="layout__panel layout__panel--side-bar" v-show="styles.showSideBar" :style="{width: styles.layoutOverflow ? '100%' : constants.sideBarWidth + 'px'}">
-        <side-bar></side-bar>
-      </div>
-    </div>
-    <tour v-if="!layoutSettings.welcomeTourFinished"></tour>
+    <navigation-bar></navigation-bar>
   </div>
 </template>
 
