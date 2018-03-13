@@ -1,36 +1,198 @@
 <template>
-  <nav class="navigation-bar" :class="{'navigation-bar--editor': styles.showEditor && !revisionContent}">
-    <!-- Title bar -->
-    <div class="navigation-bar__inner navigation-bar__inner--titlebar" style="overflow:hidden;">
-      <!-- Explorer -->
-      <div class="navigation-bar__inner navigation-bar__inner--left navigation-bar__inner--button">
-        <button class="navigation-bar__button button" tour-step-anchor="explorer" @click="toggleExplorer()" v-title="'Toggle explorer'"><icon-folder></icon-folder></button>
-      </div>
-      <div class="navigation-bar__inner navigation-bar__inner--title--wrap">
-        <!-- Title -->
-        <div class="navigation-bar__title navigation-bar__title--fake text-input"></div>
-        <div class="navigation-bar__title navigation-bar__title--text text-input" :style="{width: titleWidth + 'px'}">{{title}}</div>
-        <input class="navigation-bar__title navigation-bar__title--input text-input" :class="{'navigation-bar__title--focus': titleFocus, 'navigation-bar__title--scrolling': titleScrolling}" :style="{width: titleWidth + 'px'}" @focus="editTitle(true)" @blur="editTitle(false)" @keydown.enter="submitTitle()" @keydown.esc="submitTitle(true)" @mouseenter="titleHover = true" @mouseleave="titleHover = false" v-model="title">
-      </div>
+  <div class="docs-material-appbar">
+    <div>
+        <div class="docs-header-container">
+            <div class="docs-title-container">
+                <div id="docs-branding-container" class="docs-branding-documents docs-branding-crossfade-transition-disabled">
+                    <a href="https://docs.google.com/document/?authuser=0&amp;usp=docs_web" data-tooltip="Docs home" aria-label="Docs home">
+                        <div id="docs-branding-logo">
+                            <iconFileImage id="docs-branding-icon" />
+                        </div>
+                    </a>
+                </div>
+                <div id="docs-titlebar">
+                  <div id="docs-titlebar">
+                      <div class="docs-title-outer docs-title-inline-rename" aria-labelledby="docs-title-inner">
+                          <div class="docs-title-widget goog-inline-block" id="docs-title-widget">
+                              <div class="docs-title-input-label docs-title-untitled" style="pointer-events: none; max-width: 1539px;">
+                                  <span class="docs-title-input-label-inner">Untitled document</span>
+                              </div>
+                              <input class="docs-title-input" spellcheck="false" type="text" autocomplete="off" guidedhelpid="editor_title" aria-describedby="docs-parent-collections-container-outer" value="Untitled document" tabindex="0" dir="ltr" aria-label="Rename" style="visibility: visible; width: 150px;" data-tooltip="Rename">
+                          </div>
+                          <div class="docs-parent-collections-container-outer goog-inline-block goog-control" id="docs-parent-collections-container-outer" style="display: none; user-select: none;" aria-hidden="true" aria-disabled="false"></div>
+                          <div class="docs-titlebar-badges goog-inline-block">
+                              <div class="docs-templates-badge-container goog-inline-block"></div>
+                              <div class="docs-dlp-container goog-inline-block"></div>
+                              <div class="docs-star-container goog-inline-block">
+                                  <div id="docs-star" class="goog-inline-block jfk-star" style="user-select: none;" aria-checked="false" role="checkbox" aria-hidden="false" aria-disabled="false" data-tooltip="Star" aria-label="Star" tabindex="0"></div>
+                              </div>
+                              <div class="docs-folder-container goog-inline-block">
+                                  <div id="docs-folder" class="goog-inline-block goog-control" style="user-select: none;" role="button" aria-hidden="false" data-tooltip="Move to..." aria-label="Move to..." aria-disabled="false" tabindex="0">
+                                      <div class="docs-icon goog-inline-block ">
+                                          <div class="docs-icon-img-container docs-icon-img docs-icon-folder-solid" aria-hidden="true">&nbsp;</div>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="docs-activity-indicator-container goog-inline-block">
+                                  <div id="docs-activity-indicator" class="goog-inline-block" aria-live="polite" data-tooltip="" aria-label="You are online">
+                                      <div class="jfk-activityIndicator jfk-activityIndicator-small">
+                                          <div>
+                                              <div class="jfk-activityIndicator-circle-transition">
+                                                  <div class="jfk-activityIndicator-mask" style="left: 8px; top: 0px; width: 8px; height: 16px;">
+                                                      <div class="jfk-activityIndicator-circle" style="background-color: rgb(255, 255, 255); left: -8px; top: 0px;"></div>
+                                                      <div class="jfk-activityIndicator-circle jfk-activityIndicator-transition" style="background-color: rgb(119, 119, 119); left: 0px; top: 0px; width: 0px;"></div>
+                                                  </div>
+                                                  <div class="jfk-activityIndicator-mask" style="left: 0px; top: 0px; width: 8px; height: 16px;">
+                                                      <div class="jfk-activityIndicator-circle" style="background-color: rgb(153, 153, 153); display: none;"></div>
+                                                      <div class="jfk-activityIndicator-circle jfk-activityIndicator-transition-second" style="background-color: rgb(255, 255, 255); width: 16px; left: 0px;"></div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="jfk-activityIndicator-icon" style="opacity: 0;"></div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                    <!-- <div class="docs-titlebar-buttons docs-material">
+                            <div id="docs-presence-container" class="goog-inline-block docs-titlebar-button">
+                                <div id="docs-presence" class="goog-inline-block">
+                                    <div class="docs-presence-plus-widget goog-inline-block" style="width: 0px;">
+                                        <div class="docs-presence-plus-widget-inner goog-inline-block">
+                                            <div id=":mw.presenceStatusContent" class="docs-presence-plus-widget-status"></div>
+                                            <div class="docs-presence-plus-widget-collabs goog-inline-block" aria-described-by=":mw.presenceStatusContent"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="goog-inline-block" style="display: none;">
+                                    <div role="button" id="docs-chat" class="goog-inline-block jfk-button jfk-button-standard jfk-button-narrow docs-chat" aria-disabled="false" aria-label="Show chat" tabindex="0" data-tooltip="Show chat" style="user-select: none;">
+                                        <div class="docs-icon goog-inline-block ">
+                                            <div class="docs-icon-img-container docs-icon-img docs-icon-chat-person-wide-grey900" aria-hidden="true">&nbsp;</div>
+                                        </div>
+                                        <div class="docs-chat-badge"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="goog-inline-block">
+                                <div role="button" id="docs-docos-commentsbutton" class="goog-inline-block jfk-button jfk-button-standard docs-titlebar-button jfk-button-clear-outline" aria-disabled="false" aria-pressed="false" data-tooltip="Open comments thread (⌘+Option+Shift+A)" aria-label="Open comments thread (⌘+Option+Shift+A)" value="undefined" style="user-select: none;" aria-hidden="false" tabindex="0">
+                                    <div class="docs-icon goog-inline-block">
+                                        <div class="docs-icon-img-container docs-icon-img docs-icon-insert-comment-24" aria-hidden="true">&nbsp;</div>
+                                    </div>
+                                </div>
+                                <div id="docs-docos-caret" style="display: none;" class="docos-enable-new-header">
+                                    <div class="docs-docos-caret-outer"></div>
+                                    <div class="docs-docos-caret-inner"></div>
+                                </div>
+                            </div>
+                            <span displayname="null" vsjson="{&quot;role&quot;:0,&quot;summary&quot;:&quot;Private to only me&quot;,&quot;details&quot;:&quot;&quot;,&quot;visibilityState&quot;:&quot;private&quot;,&quot;restrictedToDomain&quot;:true,&quot;restrictedToSingleUserScope&quot;:true,&quot;hasInvalidEntries&quot;:false,&quot;hasNamedPartiesForPublish&quot;:false,&quot;publishVisibilityState&quot;:&quot;named_parties&quot;}" id="docs-titlebar-share-client-button" class="scb-container">
+                                <div role="button" class="goog-inline-block jfk-button jfk-button-action docs-titlebar-button" aria-disabled="false" aria-label="Share. Private to only me. " style="user-select: none;" tabindex="0">
+                                    <span class="scb-icon apps-share-sprite scb-button-icon  scb-private-icon-white">&nbsp;</span>Share</div>
+                            </span>
+                            <div class="onegoogle-material-minibar">
+                                <div class="gb_Xa gb_8d gb_tb gb_Za" id="gb">
+                                    <div class="gb_Cc gb_nb gb_Bc gb_4d" ng-non-bindable="" style="padding:0;height:auto;display:block">
+                                        <div class="gb_Dc gb_7d" style="display:block">
+                                            <div class="gb_5d"></div>
+                                            <div class="gb_kb gb_8c gb_Kg gb_R gb_Af gb_rb">
+                                                <div class="gb_Pc gb_mb gb_Kg gb_R">
+                                                    <a class="gb_b gb_ib gb_R" href="" role="button" tabindex="0" aria-expanded="false">
+                                                        <span class="gb_db gbii"></span>
+                                                    </a>
+                                                    <div class="gb_vb"></div>
+                                                    <div class="gb_ub"></div>
+                                                </div>
+                                                <div class="gb_wb gb_fa" aria-label="Account Information" aria-hidden="true" img-loaded="1">
+                                                    <div class="gb_zb">
+                                                        <a class="gb_Ab gb_Xf gb_Cb" aria-label="Change profile picture." href="https://plus.google.com/u/0/me" target="_blank">
+                                                            <div class="gb_Db gbip" title="Profile"></div>
+                                                            <span class="gb_ob">Change</span>
+                                                        </a>
+                                                        <div class="gb_Bb">
+                                                            <div class="gb_Eb gb_Fb">long phinome</div>
+                                                            <div class="gb_Hb">long.phinome@gmail.com</div>
+                                                            <div class="gb_yb">
+                                                                <a href="https://plus.google.com/u/0/me" target="_blank">Google+ Profile</a>–
+                                                                <a href="https://myaccount.google.com/privacypolicy" target="_blank">Privacy</a>
+                                                            </div>
+                                                            <a class="gb_Ea gb_Uf gbp1 gb_Ke gb_Ib" href="https://myaccount.google.com/?utm_source=OGB&amp;utm_medium=act" target="_blank">My Account</a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="gb_Nb">
+                                                        <div class="gb_Pb gb_bb" aria-hidden="true">
+                                                            <a class="gb_Rb gb_Zb" href="/document/d/1jBjsxejvxDI3a0v6yBw6XMqJKNdLd810RDka0dZyRsw/edit?authuser=0" target="_blank" rel="noreferrer">
+                                                                <img class="gb_1b gb_Cb" src="https://lh3.googleusercontent.com/-sNG-LASLFUc/AAAAAAAAAAI/AAAAAAAAAAA/AGi4gfyUubhMLuouKeQ-i2Cyb0DHcuxtuQ/s48-c-mo/photo.jpg" alt="Profile">
+                                                                <div class="gb_Tb">
+                                                                    <div class="gb_2b">long phinome</div>
+                                                                    <div class="gb_3b" dir="ltr">long.phinome@gmail.com (default)</div>
+                                                                </div>
+                                                            </a>
+                                                        </div>
+                                                        <a class="gb_5b gb_bb" href="https://myaccount.google.com/brandaccounts?authuser=0&amp;continue=https://docs.google.com/document/d/1jBjsxejvxDI3a0v6yBw6XMqJKNdLd810RDka0dZyRsw/edit&amp;service=/document/d/1jBjsxejvxDI3a0v6yBw6XMqJKNdLd810RDka0dZyRsw/edit%3Fauthuser%3D%24authuser" aria-hidden="true">
+                                                            <span class="gb_6b gb_gc"></span>
+                                                            <div class="gb_7b">All your Brand Accounts »</div>
+                                                        </a>
+                                                    </div>
+                                                    <div class="gb_pb gb_bb">
+                                                        <div class="gb_qb"></div>
+                                                    </div>
+                                                    <div class="gb_Jb">
+                                                        <div>
+                                                            <a class="gb_Ea gb_Tf gb_Ke gb_Ib" href="https://accounts.google.com/AddSession?service=wise&amp;continue=https://docs.google.com/document/d/1jBjsxejvxDI3a0v6yBw6XMqJKNdLd810RDka0dZyRsw/edit" target="_blank">Add account</a>
+                                                        </div>
+                                                        <div>
+                                                            <a class="gb_Ea gb_Vf gb_3f gb_Ke gb_Ib" id="gb_71" href="https://accounts.google.com/Logout?service=wise&amp;continue=https://docs.google.com" target="_top">Sign out</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="docs-docos-activitybox docos-enable-new-header" role="dialog" aria-label="Comment stream box." tabindex="0" style="visibility: hidden; display: none;">
+                                <div class="docs-docos-activitybox-inner" dir="ltr" style="text-align: left;">
+                                    <div class="docos docos-streampane-container docos-enable-docs-header" tabindex="0">
+                                        <div class="docos-streampane-content">
+                                            <div class="docos-streampane-header">
+                                                <div class="docos-new-comment-button docs-material jfk-button jfk-button-standard" role="button" data-tooltip="Add a comment" aria-label="Add a comment" aria-disabled="false" style="user-select: none;" tabindex="0">
+                                                    <div class="docos-icon goog-inline-block docos-new-comment-icon docos-icon-add-comment-size">
+                                                        <div class="docos-icon-img docos-icon-img-container docos-icon-add-comment docos-icon-img-hdpi" aria-hidden="true"></div>
+                                                    </div>Comment</div>
+                                                <div class="docos-notification-settings">
+                                                    <div class="goog-inline-block goog-flat-menu-button" role="button" aria-expanded="false" aria-haspopup="true" data-tooltip="Change email notification settings for this document." aria-label="Change email notification settings for this document." style="user-select: none;" aria-disabled="false" tabindex="0">
+                                                        <div class="goog-inline-block goog-flat-menu-button-caption">
+                                                            <div class="docos-ns-caption">
+                                                                <div class="docos-icon goog-inline-block docos-ns-caption-icon docos-icon-bell-size">
+                                                                    <div class="docos-icon-img docos-icon-img-container docos-icon-bell" aria-hidden="true"></div>
+                                                                </div>
+                                                                <div class="docos-ns-caption-text">
+                                                                    <div class="docos-ns-caption-text-value">Notifications</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="goog-inline-block goog-flat-menu-button-dropdown" aria-hidden="true">&nbsp;</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="docos-streampane-readonlytext show-on-readonly goog-inline-block">You do not have permission to add comments.</div>
+                                            <div class="docos docos-stream-view"></div>
+                                        </div>
+                                        <div></div>
+                                    </div>
+                                    <div tabindex="0" style="position: absolute;"></div>
+                                </div>
+                            </div>
+                        </div> -->
+                </div>
+            </div>
+            <div class="docs-headerbar-container"></div>
+        </div>
     </div>
-    <div class="navigation-bar__inner navigation-bar__inner--edit-buttons">
-      <button class="navigation-bar__button button" @click="undo" v-title="'Undo'" :disabled="!canUndo"><icon-undo></icon-undo></button>
-      <button class="navigation-bar__button button" @click="redo" v-title="'Redo'" :disabled="!canRedo"><icon-redo></icon-redo></button>
-      <div class="navigation-bar__spacer"></div>
-      <button class="navigation-bar__button button" @click="pagedownClick('bold')" v-title="'Bold'"><icon-format-bold></icon-format-bold></button>
-      <button class="navigation-bar__button button" @click="pagedownClick('italic')" v-title="'Italic'"><icon-format-italic></icon-format-italic></button>
-      <button class="navigation-bar__button button" @click="pagedownClick('strikethrough')" v-title="'Strikethrough'"><icon-format-strikethrough></icon-format-strikethrough></button>
-      <button class="navigation-bar__button button" @click="pagedownClick('heading')" v-title="'Heading'"><icon-format-size></icon-format-size></button>
-      <button class="navigation-bar__button button" @click="pagedownClick('ulist')" v-title="'Unordered list'"><icon-format-list-bulleted></icon-format-list-bulleted></button>
-      <button class="navigation-bar__button button" @click="pagedownClick('olist')" v-title="'Ordered list'"><icon-format-list-numbers></icon-format-list-numbers></button>
-      <button class="navigation-bar__button button" @click="pagedownClick('table')" v-title="'Table'"><icon-table></icon-table></button>
-      <button class="navigation-bar__button button" @click="pagedownClick('quote')" v-title="'Blockquote'"><icon-format-quote-close></icon-format-quote-close></button>
-      <button class="navigation-bar__button button" @click="pagedownClick('code')" v-title="'Code'"><icon-code-tags></icon-code-tags></button>
-      <button class="navigation-bar__button button" @click="pagedownClick('link')" v-title="'Link'"><icon-link-variant></icon-link-variant></button>
-      <button class="navigation-bar__button button" @click="pagedownClick('image')" v-title="'Image'"><icon-file-image></icon-file-image></button>
-      <button class="navigation-bar__button button" @click="pagedownClick('hr')" v-title="'Horizontal rule'"><icon-format-horizontal-rule></icon-format-horizontal-rule></button>
-    </div>
-  </nav>
+    <div class="B"></div>
+    <div class="C"></div>
+</div>
 </template>
 
 <script>
@@ -179,205 +341,83 @@ export default {
 <style lang="scss">
 @import 'common/variables.scss';
 
-.navigation-bar {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  padding-top: 4px;
-  overflow: hidden;
-}
-
-.navigation-bar__hidden {
-  display: none;
-}
-
-.navigation-bar__inner--left {
-  float: left;
-
-  &.navigation-bar__inner--button {
-    margin-right: 15px;
+.docs-material-appbar {
+  .docs-header-container,
+  .docs-title-container {
+    display: flex;
   }
-}
 
-.navigation-bar__inner--right {
-  float: right;
-
-  /* prevent from seeing wrapped buttons */
-  margin-bottom: 20px;
-}
-
-.navigation-bar__inner--button {
-  margin: 0 4px;
-}
-
-.navigation-bar__inner--edit-buttons {
-  margin-left: 15px;
-
-  .navigation-bar__button,
-  .navigation-bar__spacer {
-    float: left;
+  .docs-title-container {
+    flex: 1;
   }
-}
 
-.navigation-bar__inner--title--wrap {
-  margin-right: 20px;
-}
+  #docs-branding-container {
+    height: 65px;
+    overflow: hidden;
 
-$button-size: 36px;
-
-.navigation-bar__button,
-.navigation-bar__spacer {
-  height: $button-size;
-  padding: 0 4px;
-
-  /* prevent from seeing wrapped buttons */
-  margin-bottom: 20px;
-}
-
-.navigation-bar__button {
-  width: $button-size;
-  padding: 0 8px;
-
-  .navigation-bar__inner--button & {
-    padding: 0 4px;
-    width: 38px;
-
-    &.navigation-bar__button--stackedit {
-      opacity: 0.85;
-
-      &:active,
-      &:focus,
-      &:hover {
-        opacity: 1;
-      }
+    a {
+      display: block;
+      margin: 4px 0 4px 8px;
+      padding: 8px;
     }
   }
-}
 
-.navigation-bar__button--revision {
-  width: 38px;
-
-  &:first-child {
-    margin-left: 10px;
-  }
-
-  &:last-child {
-    margin-right: 10px;
-  }
-}
-
-.navigation-bar__button--restore {
-  width: auto;
-}
-
-.navigation-bar__title {
-  margin: 0 4px;
-  font-size: 22px;
-
-  .layout--revision & {
-    position: absolute;
-    left: -9999px;
-  }
-}
-
-.navigation-bar__title,
-.navigation-bar__button {
-  display: inline-block;
-  color: $navbar-color;
-  background-color: transparent;
-}
-
-.navigation-bar__button--sync,
-.navigation-bar__button--publish {
-  padding: 0 6px;
-  margin: 0 5px;
-}
-
-.navigation-bar__button[disabled] {
-  &,
-  &:active,
-  &:focus,
-  &:hover {
-    color: $navbar-color;
-  }
-}
-
-.navigation-bar__title--input,
-.navigation-bar__button {
-  &:active,
-  &:focus,
-  &:hover {
-    color: $navbar-hover-color;
-    background-color: $navbar-hover-background;
-    border-color: $navbar-hover-border-color;
-  }
-}
-
-.navigation-bar__button--location {
-  width: 20px;
-  height: 20px;
-  border-radius: 10px;
-  padding: 2px;
-  margin-top: 8px;
-  opacity: 0.5;
-  background-color: rgba(255, 255, 255, 0.2);
-
-  &:active,
-  &:focus,
-  &:hover {
-    opacity: 1;
-    background-color: rgba(255, 255, 255, 0.2);
-  }
-}
-
-.navigation-bar__button--blink {
-  animation: blink 1s linear infinite;
-}
-
-.navigation-bar__title--fake {
-  position: absolute;
-  left: -9999px;
-  width: auto;
-  white-space: pre-wrap;
-}
-
-.navigation-bar__title--text {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-
-  .navigation-bar--editor & {
-    display: none;
-  }
-}
-
-.navigation-bar__title--input,
-.navigation-bar__inner--edit-buttons {
-  display: none;
-
-  .navigation-bar--editor & {
-    display: block;
-  }
-}
-
-.navigation-bar__button {
-  display: none;
-
-  .navigation-bar__inner--button &,
-  .navigation-bar--editor & {
+  .goog-inline-block {
+    position: relative;
     display: inline-block;
+    white-space: nowrap;
+    font-size: 18px;
   }
-}
 
-.navigation-bar__button--revision {
-  display: inline-block;
-}
+  .docs-title-input-label {
+    margin: 0;
+    padding: 2px 8px;
+    font: 18px Arial;
+    line-height: 22px;
+    overflow: hidden;
+    pointer-events: none;
+    position: absolute;
+    text-overflow: ellipsis;
+    white-space: pre;
+    z-index: 1;
+  }
 
-.navigation-bar__title--input {
-  cursor: pointer;
+  .docs-title-widget {
+    height: 27px;
+    width: auto;
+  }
 
-  &.navigation-bar__title--focus {
-    cursor: text;
+  .docs-title-input-label-inner {
+    display: inline;
+    font-family: Arial;
+    line-height: 22px;
+    color: #777;
+    font-style: italic;
+    white-space: pre;
+  }
+
+  .docs-title-input {
+    border: 1px solid transparent;
+    border-radius: 2px;
+    color: #fff;
+    font-size: 18px;
+    height: 20px;
+    line-height: 22px;
+    margin: 0;
+    min-width: 1px;
+    padding: 2px 7px;
+    visibility: hidden;
+
+    &:active,
+    &:focus,
+    &:hover {
+      border-color: #e5e5e5;
+    }
+  }
+
+  #docs-branding-logo {
+    width: 40px;
+    height: 40px;
   }
 }
 
