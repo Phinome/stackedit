@@ -11,42 +11,19 @@
                     <span class="docs-title-input-label-inner">Untitled document</span>
                 </div>
                 <input class="docs-title-input" spellcheck="false" type="text" autocomplete="off" guidedhelpid="editor_title" aria-describedby="docs-parent-collections-container-outer"
-                    value="Untitled document" tabindex="0" dir="ltr" aria-label="Rename" style="visibility: visible; width: 150px;"
+                    value="Untitled document" tabindex="0" dir="ltr" aria-label="Rename" style="display:none;"
                     data-tooltip="Rename">
             </div>
-            <div class="docs-parent-collections-container-outer goog-inline-block goog-control" id="docs-parent-collections-container-outer"
-                style="display: none; user-select: none;" aria-hidden="true" aria-disabled="false"></div>
             <div class="docs-titlebar-badges goog-inline-block">
-                <div class="docs-templates-badge-container goog-inline-block"></div>
-                <div class="docs-dlp-container goog-inline-block"></div>
                 <div class="docs-star-container goog-inline-block">
-                    <div id="docs-star" class="goog-inline-block jfk-star" style="user-select: none;" aria-checked="false" role="checkbox" aria-hidden="false"
-                        aria-disabled="false" data-tooltip="Star" aria-label="Star" tabindex="0"></div>
+                    <Icon type="ios-star-outline" id="docs-star" style="user-select: none;" aria-checked="false" role="checkbox" aria-hidden="false"
+                        aria-disabled="false" data-tooltip="Star" aria-label="Star" tabindex="0"></Icon>
                 </div>
                 <div class="docs-folder-container goog-inline-block">
                     <div id="docs-folder" class="goog-inline-block goog-control" style="user-select: none;" role="button" aria-hidden="false"
                         data-tooltip="Move to..." aria-label="Move to..." aria-disabled="false" tabindex="0">
-                        <div class="docs-icon goog-inline-block ">
-                            <div class="docs-icon-img-container docs-icon-img docs-icon-folder-solid" aria-hidden="true">&nbsp;</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="docs-activity-indicator-container goog-inline-block">
-                    <div id="docs-activity-indicator" class="goog-inline-block" aria-live="polite" data-tooltip="" aria-label="You are online">
-                        <div class="jfk-activityIndicator jfk-activityIndicator-small">
-                            <div>
-                                <div class="jfk-activityIndicator-circle-transition">
-                                    <div class="jfk-activityIndicator-mask" style="left: 8px; top: 0px; width: 8px; height: 16px;">
-                                        <div class="jfk-activityIndicator-circle" style="background-color: rgb(255, 255, 255); left: -8px; top: 0px;"></div>
-                                        <div class="jfk-activityIndicator-circle jfk-activityIndicator-transition" style="background-color: rgb(119, 119, 119); left: 0px; top: 0px; width: 0px;"></div>
-                                    </div>
-                                    <div class="jfk-activityIndicator-mask" style="left: 0px; top: 0px; width: 8px; height: 16px;">
-                                        <div class="jfk-activityIndicator-circle" style="background-color: rgb(153, 153, 153); display: none;"></div>
-                                        <div class="jfk-activityIndicator-circle jfk-activityIndicator-transition-second" style="background-color: rgb(255, 255, 255); width: 16px; left: 0px;"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="jfk-activityIndicator-icon" style="opacity: 0;"></div>
+                        <div class="docs-icon">
+                            <Icon type="ios-folder" class="docs-icon-img-container docs-icon-img docs-icon-folder-solid" aria-hidden="true">&nbsp;</Icon>
                         </div>
                     </div>
                 </div>
@@ -223,6 +200,48 @@ export default {
   .docs-title {
     padding-top: 9px;
     font-size: 18px;
+  }
+
+
+  .docs-title-outer {
+    display: flex;
+    align-items: center;
+    line-height: 29px;
+  }
+
+  .docs-title-widget {
+    position: relative;
+  }
+
+  .docs-title-input-label {
+    margin: 0;
+    padding: 2px 8px;
+    font: 18px Arial;
+    font-style: italic;
+    color: #777;
+    line-height: 22px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: pre;
+    z-index: 1;
+  }
+  .docs-title-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .docs-titlebar-badges {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .docs-star-container,
+    .docs-folder-container {
+      width: 29px;
+      height: 29px;
+      text-align: center;
+    }
   }
 }
 
