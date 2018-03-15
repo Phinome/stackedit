@@ -3,31 +3,29 @@
       <Col class="docs-logo-wrapper">
         <Icon type="document-text" size="40"></Icon>
       </Col>
-      <Col span="16">
-        <div class="docs-title">
-          <div class="docs-title-outer docs-title-inline-rename" aria-labelledby="docs-title-inner">
-            <div class="docs-title-widget goog-inline-block" id="docs-title-widget">
-                <div class="docs-title-input-label docs-title-untitled" style="pointer-events: none; max-width: 1539px;">
-                    <span class="docs-title-input-label-inner">Untitled document</span>
-                </div>
-                <input class="docs-title-input" spellcheck="false" type="text" autocomplete="off" guidedhelpid="editor_title" aria-describedby="docs-parent-collections-container-outer"
-                    value="Untitled document" tabindex="0" dir="ltr" aria-label="Rename" style="display:none;"
-                    data-tooltip="Rename">
-            </div>
-            <div class="docs-titlebar-badges goog-inline-block">
-                <div class="docs-star-container goog-inline-block">
-                    <Icon type="ios-star-outline" id="docs-star" style="user-select: none;" aria-checked="false" role="checkbox" aria-hidden="false"
-                        aria-disabled="false" data-tooltip="Star" aria-label="Star" tabindex="0"></Icon>
-                </div>
-                <div class="docs-folder-container goog-inline-block">
-                    <div id="docs-folder" class="goog-inline-block goog-control" style="user-select: none;" role="button" aria-hidden="false"
-                        data-tooltip="Move to..." aria-label="Move to..." aria-disabled="false" tabindex="0">
-                        <div class="docs-icon">
-                            <Icon type="ios-folder" class="docs-icon-img-container docs-icon-img docs-icon-folder-solid" aria-hidden="true">&nbsp;</Icon>
-                        </div>
-                    </div>
-                </div>
-            </div>
+      <Col span="16" class="docs-title">
+        <div class="docs-title-outer docs-title-inline-rename" aria-labelledby="docs-title-inner">
+          <div class="docs-title-widget goog-inline-block" id="docs-title-widget">
+              <div class="docs-title-input-label docs-title-untitled" style="pointer-events: none; max-width: 1539px;">
+                  <span class="docs-title-input-label-inner">Untitled document</span>
+              </div>
+              <input class="docs-title-input" spellcheck="false" type="text" autocomplete="off" guidedhelpid="editor_title" aria-describedby="docs-parent-collections-container-outer"
+                  value="Untitled document" tabindex="0" dir="ltr" aria-label="Rename" style="display:none;"
+                  data-tooltip="Rename">
+          </div>
+          <div class="docs-titlebar-badges goog-inline-block">
+              <div class="docs-star-container goog-inline-block">
+                  <Icon type="ios-star-outline" id="docs-star" style="user-select: none;" aria-checked="false" role="checkbox"
+                      aria-hidden="false" aria-disabled="false" data-tooltip="Star" aria-label="Star" tabindex="0"></Icon>
+              </div>
+              <div class="docs-folder-container goog-inline-block">
+                  <div id="docs-folder" class="goog-inline-block goog-control" style="user-select: none;" role="button" aria-hidden="false"
+                      data-tooltip="Move to..." aria-label="Move to..." aria-disabled="false" tabindex="0">
+                      <div class="docs-icon">
+                          <Icon type="ios-folder" class="docs-icon-img-container docs-icon-img docs-icon-folder-solid" aria-hidden="true">&nbsp;</Icon>
+                      </div>
+                  </div>
+              </div>
           </div>
         </div>
       </Col>
@@ -200,6 +198,7 @@ export default {
   .docs-title {
     padding-top: 9px;
     font-size: 18px;
+    align-self: flex-start;
   }
 
 
