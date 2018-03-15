@@ -7,40 +7,45 @@ module.exports = {
     sourceType: 'module'
   },
   env: {
-    browser: true,
+    browser: true
   },
   extends: 'airbnb-base',
   // required to lint *.vue files
-  plugins: [
-    'html'
-  ],
+  plugins: ['html'],
   globals: {
-    "NODE_ENV": false,
-    "VERSION": false,
-    "GOOGLE_CLIENT_ID": false,
-    "GITHUB_CLIENT_ID": false
+    NODE_ENV: false,
+    VERSION: false,
+    GOOGLE_CLIENT_ID: false,
+    GITHUB_CLIENT_ID: false
   },
   // check if imports actually resolve
-  'settings': {
+  settings: {
     'import/resolver': {
-      'webpack': {
-        'config': 'build/webpack.base.conf.js'
+      webpack: {
+        config: 'build/webpack.base.conf.js'
       }
     }
   },
   // add your custom rules here
-  'rules': {
-    'no-param-reassign': [2, { 'props': false }],
+  rules: {
+    'no-param-reassign': [2, {props: false}],
     // don't require .vue extension when importing
-    'import/extensions': ['error', 'always', {
-      'js': 'never',
-      'vue': 'never'
-    }],
+    'import/extensions': [
+      'error',
+      'always',
+      {
+        js: 'never',
+        vue: 'never'
+      }
+    ],
     // allow optionalDependencies
-    'import/no-extraneous-dependencies': ['error', {
-      'optionalDependencies': ['test/unit/index.js']
-    }],
+    'import/no-extraneous-dependencies': [
+      'error',
+      {
+        optionalDependencies: ['test/unit/index.js']
+      }
+    ],
     // allow debugger during development
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0
   }
-}
+};
