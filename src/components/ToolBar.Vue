@@ -1,82 +1,9 @@
 <template>
-  <Row type="flex" align="middle" class="docs-material-appbar">
-      <Col class="docs-logo-wrapper">
-        <Icon type="document-text" size="40"></Icon>
-      </Col>
-      <Col span="20" class="docs-title">
-        <div class="docs-title-outer docs-title-inline-rename" aria-labelledby="docs-title-inner">
-          <div class="docs-title-widget goog-inline-block" id="docs-title-widget">
-              <div class="docs-title-input-label docs-title-untitled" style="pointer-events: none; max-width: 1539px;">
-                  <span class="docs-title-input-label-inner">Untitled document</span>
-              </div>
-              <input class="docs-title-input" spellcheck="false" type="text" autocomplete="off" guidedhelpid="editor_title" aria-describedby="docs-parent-collections-container-outer"
-                  value="Untitled document" tabindex="0" dir="ltr" aria-label="Rename" style="display:none;"
-                  data-tooltip="Rename">
-          </div>
-          <div class="docs-titlebar-badges goog-inline-block">
-              <div class="docs-star-container goog-inline-block">
-                  <Icon type="ios-star-outline" id="docs-star" style="user-select: none;" aria-checked="false" role="checkbox"
-                      aria-hidden="false" aria-disabled="false" data-tooltip="Star" aria-label="Star" tabindex="0"></Icon>
-              </div>
-              <div class="docs-folder-container goog-inline-block">
-                  <div id="docs-folder" class="goog-inline-block goog-control" style="user-select: none;" role="button" aria-hidden="false"
-                      data-tooltip="Move to..." aria-label="Move to..." aria-disabled="false" tabindex="0">
-                      <div class="docs-icon">
-                          <Icon type="ios-folder" class="docs-icon-img-container docs-icon-img docs-icon-folder-solid" aria-hidden="true">&nbsp;</Icon>
-                      </div>
-                  </div>
-              </div>
-          </div>
-        </div>
-        <div class="docs-header-menu">
-          <Menu mode="horizontal" :theme="theme1" active-name="1" accordion>
-              <MenuItem name="1">
-                  文件
-              </MenuItem>
-              <MenuItem name="2">
-                  编辑
-              </MenuItem>
-              <Submenu name="3">
-                  <template slot="title">
-                      <Icon type="stats-bars"></Icon>
-                      统计分析
-                  </template>
-                  <MenuGroup title="使用">
-                      <MenuItem name="3-1">新增和启动</MenuItem>
-                      <MenuItem name="3-2">活跃分析</MenuItem>
-                      <MenuItem name="3-3">时段分析</MenuItem>
-                  </MenuGroup>
-                  <MenuGroup title="留存">
-                      <MenuItem name="3-4">用户留存</MenuItem>
-                      <MenuItem name="3-5">流失用户</MenuItem>
-                  </MenuGroup>
-              </Submenu>
-              <MenuItem name="4">
-                 视图
-              </MenuItem>
-              <MenuItem name="4">
-                 插入
-              </MenuItem>
-              <MenuItem name="4">
-                 格式化
-              </MenuItem>
-              <MenuItem name="4">
-                 工具
-              </MenuItem>
-              <MenuItem name="4">
-                 表格
-              </MenuItem>
-              <MenuItem name="4">
-                 插件
-              </MenuItem>
-              <MenuItem name="4">
-                 帮助
-              </MenuItem>
-          </Menu>
-        </div>
-      </Col>
-      <Col span="3">col-3</Col>
-  </Row>
+  <div class="docs-toolbar-container">
+    <ul class="docs-toolbar">
+        <solt name="toolbars"></solt>
+    </ul>
+  </div>
 </template>
 
 <script>
