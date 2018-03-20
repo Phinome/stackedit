@@ -1,14 +1,14 @@
 <template>
   <div class="docs-toolbar-container">
-    <ul class="docs-toolbar">
-        <solt name="toolbars"></solt>
+    <ul class="docs-toolbar" v-for="(item, index) of toolbars" :key="index">
+        <!-- <solt name="menu"></solt> -->
+        <li><a>{item.name}</a></li>
     </ul>
   </div>
 </template>
 
 <script>
 import { mapState, mapMutations, mapGetters, mapActions } from 'vuex';
-import { Row, Col, Icon, Menu, MenuItem, Submenu, MenuGroup } from 'iview';
 import editorSvc from '../services/editorSvc';
 import syncSvc from '../services/syncSvc';
 import publishSvc from '../services/publishSvc';
@@ -16,16 +16,31 @@ import animationSvc from '../services/animationSvc';
 import utils from '../services/utils';
 
 export default {
-  components: {
-    Row,
-    Col,
-    Icon,
-    Menu,
-    MenuItem,
-    Submenu,
-    MenuGroup,
-  },
   data: () => ({
+    toolbars: [{
+        name: 'File',
+        dropdown: [{
+            icon: 'share',
+            name: 'Share...',
+            shortcut: null
+        }, {
+            icon: 'download',
+            name: 'Downlad as',
+            dropdown: [{
+                icon: 'word',
+                name: 'Mircosoft Word(.docx)',
+                action: () => {...}
+
+            }]
+        }]
+    }, {
+        name: 'Edit',
+        dropdown: [{
+            icon: 'ios-undo',
+            name: 'Undo',
+            shortcut: '⌘Z'
+        }]
+    }],
     mounted: false,
     title: '',
     titleFocus: false,
@@ -163,62 +178,61 @@ export default {
 @import 'common/variables.scss';
 
 .docs-material-appbar {
-  height: 64px;
-  margin: 0 16px;
+    height: 64px;
+    margin: 0 16px;
 
-  .docs-logo-wrapper {
-    margin: 4px 0 4px 8px;
-    padding: 8px;
-    border-radius: 50%;
-  }
-
-  .docs-title {
-    padding-top: 9px;
-    font-size: 18px;
-    align-self: flex-start;
-  }
-
-
-  .docs-title-outer {
-    display: flex;
-    align-items: center;
-    line-height: 29px;
-  }
-
-  .docs-title-widget {
-    position: relative;
-  }
-
-  .docs-title-input-label {
-    margin: 0;
-    padding: 2px 8px;
-    font: 18px Arial;
-    font-style: italic;
-    color: #777;
-    line-height: 22px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: pre;
-    z-index: 1;
-  }
-  .docs-title-input {
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-
-  .docs-titlebar-badges {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    .docs-star-container,
-    .docs-folder-container {
-      width: 29px;
-      height: 29px;
-      text-align: center;
+    .docs-logo-wrapper {
+        margin: 4px 0 4px 8px;
+        padding: 8px;
+        border-radius: 50%;
     }
-  }
+
+    .docs-title {
+        padding-top: 9px;
+        font-size: 18px;
+        align-self: flex-start;
+    }
+
+    .docs-title-outer {
+        display: flex;
+        align-items: center;
+        line-height: 29px;
+    }
+
+    .docs-title-widget {
+        position: relative;
+    }
+
+    .docs-title-input-label {
+        margin: 0;
+        padding: 2px 8px;
+        font: 18px Arial;
+        font-style: italic;
+        color: #777;
+        line-height: 22px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: pre;
+        z-index: 1;
+    }
+    .docs-title-input {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    .docs-titlebar-badges {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .docs-star-container,
+        .docs-folder-container {
+            width: 29px;
+            height: 29px;
+            text-align: center;
+        }
+    }
 }
 
 $r: 10px;
@@ -227,60 +241,60 @@ $b: $d/10;
 $t: 3000ms;
 
 .navigation-bar__spinner {
-  width: 24px;
-  margin: 7px 0 0 8px;
-
-  .icon {
     width: 24px;
-    height: 24px;
-    color: transparentize($error-color, 0.5);
-  }
+    margin: 7px 0 0 8px;
+
+    .icon {
+        width: 24px;
+        height: 24px;
+        color: transparentize($error-color, 0.5);
+    }
 }
 
 .spinner {
-  width: $d;
-  height: $d;
-  display: block;
-  position: relative;
-  border: $b solid transparentize($navbar-color, 0.5);
-  border-radius: 50%;
-  margin: 2px;
-
-  &::before,
-  &::after {
-    content: "";
-    position: absolute;
+    width: $d;
+    height: $d;
     display: block;
-    width: $b;
-    background-color: $navbar-color;
-    border-radius: $b * 0.5;
-    transform-origin: 50% 0;
-  }
+    position: relative;
+    border: $b solid transparentize($navbar-color, 0.5);
+    border-radius: 50%;
+    margin: 2px;
 
-  &::before {
-    height: $r * 0.4;
-    left: $r - $b * 1.5;
-    top: 50%;
-    animation: spin $t linear infinite;
-  }
+    &::before,
+    &::after {
+        content: '';
+        position: absolute;
+        display: block;
+        width: $b;
+        background-color: $navbar-color;
+        border-radius: $b * 0.5;
+        transform-origin: 50% 0;
+    }
 
-  &::after {
-    height: $r * 0.6;
-    left: $r - $b * 1.5;
-    top: 50%;
-    animation: spin $t/4 linear infinite;
-  }
+    &::before {
+        height: $r * 0.4;
+        left: $r - $b * 1.5;
+        top: 50%;
+        animation: spin $t linear infinite;
+    }
+
+    &::after {
+        height: $r * 0.6;
+        left: $r - $b * 1.5;
+        top: 50%;
+        animation: spin $t/4 linear infinite;
+    }
 }
 
 @keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 @keyframes blink {
-  50% {
-    opacity: 1;
-  }
+    50% {
+        opacity: 1;
+    }
 }
 </style>

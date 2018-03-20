@@ -2,7 +2,6 @@ import Vue from 'vue';
 import 'babel-polyfill';
 import 'indexeddbshim/dist/indexeddbshim';
 import * as OfflinePluginRuntime from 'offline-plugin/runtime';
-import 'iview/dist/styles/iview.css';
 import './extensions/';
 import './services/optional';
 import './icons/';
@@ -21,12 +20,11 @@ if (NODE_ENV === 'production') {
       OfflinePluginRuntime.applyUpdate();
     },
     onUpdated: () => {
-      localDbSvc.sync()
-        .then(() => {
-          localStorage.updated = true;
-          // Reload the webpage to load into the new version
-          location.reload();
-        });
+      localDbSvc.sync().then(() => {
+        localStorage.updated = true;
+        // Reload the webpage to load into the new version
+        location.reload();
+      });
     },
   });
 }

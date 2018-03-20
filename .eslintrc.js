@@ -4,27 +4,27 @@ module.exports = {
   root: true,
   parser: 'babel-eslint',
   parserOptions: {
-    sourceType: 'module'
+    sourceType: 'module',
   },
   env: {
-    browser: true
+    browser: true,
   },
-  extends: 'airbnb-base',
+  extends: ['airbnb-base', 'prettier'],
   // required to lint *.vue files
   plugins: ['html'],
   globals: {
     NODE_ENV: false,
     VERSION: false,
     GOOGLE_CLIENT_ID: false,
-    GITHUB_CLIENT_ID: false
+    GITHUB_CLIENT_ID: false,
   },
   // check if imports actually resolve
   settings: {
     'import/resolver': {
       webpack: {
-        config: 'build/webpack.base.conf.js'
-      }
-    }
+        config: 'build/webpack.base.conf.js',
+      },
+    },
   },
   // add your custom rules here
   rules: {
@@ -35,17 +35,17 @@ module.exports = {
       'always',
       {
         js: 'never',
-        vue: 'never'
-      }
+        vue: 'never',
+      },
     ],
     // allow optionalDependencies
     'import/no-extraneous-dependencies': [
       'error',
       {
-        optionalDependencies: ['test/unit/index.js']
-      }
+        optionalDependencies: ['test/unit/index.js'],
+      },
     ],
     // allow debugger during development
-    'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0
-  }
+    'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
+  },
 };
