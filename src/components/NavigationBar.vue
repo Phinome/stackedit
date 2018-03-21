@@ -32,39 +32,86 @@
           <Menu :default-active="activeIndex" class="docs-edit-menu" mode="horizontal">
             <Submenu index="1" class="docs-edit-menu-first">
               <template slot="title">文件</template>
-              <MenuItem index="2-1">选项1</MenuItem>
-              <MenuItem index="2-2">选项2</MenuItem>
-              <MenuItem index="2-3">选项3</MenuItem>
+              <Submenu index="1-1">
+                <template slot="title">新建...</template>
+                <MenuItem index="1-1-1" class="edit-item-with-shortcut">
+                  <span class="edit-item-with-shortcut-title"><i></i>空白文档</span>
+                  <span class="edit-shortcut">Ctrl/Cmd+n</span>
+                </MenuItem>
+                <MenuItem index="1-1-2" class="edit-item-with-shortcut">
+                  <span class="edit-item-with-shortcut-title"><i></i>创建副本</span>
+                  <span class="edit-shortcut">Ctrl/Cmd+shift+n</span>
+                </MenuItem>
+                <MenuItem index="1-1-3"><span>从模板创建...</span></MenuItem>
+              </Submenu>
+              <MenuItem index="1-2" class="edit-item-with-shortcut">
+                <span class="edit-item-with-shortcut-title">打开</span>
+                <span class="edit-shortcut">Ctrl/Cmd+o</span>
+              </MenuItem>
+              <MenuItem index="1-3" class="edit-item-with-shortcut">
+                <span class="edit-item-with-shortcut-title">保存</span>
+                <span class="edit-shortcut">Ctrl/Cmd+s</span>
+              </MenuItem>
+              <Submenu index="1-4">
+                <template slot="title">保存为...</template>
+                <MenuItem index="1-4-1" class="edit-item-with-shortcut">
+                  <span class="edit-item-with-shortcut-title"><i></i>PDF</span>
+                  <!-- <span class="edit-shortcut">Ctrl/Cmd+shift+S</span> -->
+                </MenuItem>
+                <MenuItem index="1-4-2" class="edit-item-with-shortcut">
+                  <span class="edit-item-with-shortcut-title"><i></i>Word文档(.docx)</span>
+                </MenuItem>
+                <MenuItem index="1-4-3" class="edit-item-with-shortcut">
+                  <span class="edit-item-with-shortcut-title"><i></i>HTML(.html)</span>
+                </MenuItem>
+                <MenuItem index="1-4-3" class="edit-item-with-shortcut">
+                  <span class="edit-item-with-shortcut-title"><i></i>EPUB(.epub)</span>
+                </MenuItem>
+                <MenuItem index="1-4-3" class="edit-item-with-shortcut">
+                  <span class="edit-item-with-shortcut-title"><i></i>Text(.txt)</span>
+                </MenuItem>
+              </Submenu>
+              <MenuItem index="1-5">Email as attachement...</MenuItem>
+              <MenuItem index="1-6">导入</MenuItem>
+              <MenuItem index="1-7">重命名</MenuItem>
+              <MenuItem index="1-8">移动...</MenuItem>
+              <MenuItem index="1-9">丢入废弃篓...</MenuItem>
             </Submenu>
             <Submenu index="2" >
               <template slot="title">编辑</template>
-              <MenuItem index="2-1">选项1</MenuItem>
-              <MenuItem index="2-2">选项2</MenuItem>
+              <MenuItem index="2-1" class="edit-item-with-shortcut">
+                <span class="edit-item-with-shortcut-title"><i></i>撤销</span>
+                <span class="edit-shortcut">Ctrl/Cmd+z</span>
+              </MenuItem>
+              <MenuItem index="2-2">
+                <span class="edit-item-with-shortcut-title"><i></i>重做</span>
+                <span class="edit-shortcut">Ctrl/Cmd+shift+z</span>
+              </MenuItem>
               <MenuItem index="2-3">选项3</MenuItem>
             </Submenu>
             <Submenu index="3" >
                 <template slot="title">视图</template>
-                <MenuItem index="2-1">选项1</MenuItem>
-                <MenuItem index="2-2">选项2</MenuItem>
-                <MenuItem index="2-3">选项3</MenuItem>
+                <MenuItem index="3-1">选项1</MenuItem>
+                <MenuItem index="3-2">选项2</MenuItem>
+                <MenuItem index="3-3">选项3</MenuItem>
             </Submenu>
             <Submenu index="4" >
                 <template slot="title">插入</template>
-                <MenuItem index="2-1">选项1</MenuItem>
-                <MenuItem index="2-2">选项2</MenuItem>
-                <MenuItem index="2-3">选项3</MenuItem>
+                <MenuItem index="4-1">选项1</MenuItem>
+                <MenuItem index="4-2">选项2</MenuItem>
+                <MenuItem index="4-3">选项3</MenuItem>
             </Submenu>
             <Submenu index="5" >
                 <template slot="title">工具</template>
-                <MenuItem index="2-1">选项1</MenuItem>
-                <MenuItem index="2-2">选项2</MenuItem>
-                <MenuItem index="2-3">选项3</MenuItem>
+                <MenuItem index="5-1">选项1</MenuItem>
+                <MenuItem index="5-2">选项2</MenuItem>
+                <MenuItem index="5-3">选项3</MenuItem>
             </Submenu>
             <Submenu index="6" >
                 <template slot="title">帮助</template>
-                <MenuItem index="2-1">选项1</MenuItem>
-                <MenuItem index="2-2">选项2</MenuItem>
-                <MenuItem index="2-3">选项3</MenuItem>
+                <MenuItem index="6-1">选项1</MenuItem>
+                <MenuItem index="6-2">选项2</MenuItem>
+                <MenuItem index="6-3">选项3</MenuItem>
             </Submenu>
           </Menu>
         </div>
@@ -209,10 +256,30 @@ export default {
 <style lang="scss">
 @import 'common/variables.scss';
 
+.docs-edit-menu {
+    font-size: 13px;
+    color: #333;
+}
+
+.edit-item-with-shortcut {
+    display: flex;
+
+    .edit-item-with-shortcut-title {
+        flex: 1;
+    }
+    .edit-shortcut {
+        font-size: 12px;
+    }
+}
+
 .docs-material-appbar {
-    height: 68px;
+    height: 76px;
     margin: 0;
     padding: 0 16px;
+
+    .docs-header-menu {
+        margin-top: 8px;
+    }
 
     .el-menu--horizontal {
         border-bottom: none;
